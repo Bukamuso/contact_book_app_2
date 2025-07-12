@@ -12,6 +12,7 @@
         <script src="config.js"></script>
         <script>
             document.getElementById("refresh").addEventListener('click', fetchContacts);
+            doucment.getElementById("addContact").addEventListener('click', addContact);
 
             function fetchContacts(){
                 fetch(rootPath + "controller/get-contacts/")
@@ -33,12 +34,15 @@
                             <td><img src="${rootPath}controller/uploads/${data[a].avatar}" width="40"/></td>
                             <td><h5>${data[a].firstname}</h5></td>
                             <td><h5>${data[a].lastname}</h5></td> 
-                        </tr>
-                    
+                        </tr>                    
                     `
                 }
                 output += "</table>";
                 document.getElementById("table").innerHTML = output;    
+            }
+
+            function addContact(){
+                window.open("add_contact.html", "_self");
             }
 
 
