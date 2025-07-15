@@ -43,7 +43,7 @@
                     return response.json();
                 })
                 .then(function(data){
-                    //display contact info
+                    displayOutput(data);
                     console.log(data);
                 })
             }
@@ -51,7 +51,18 @@
             function homeLink(){
                 window.open("index.html", "_self");
             }
-        
+
+            function displayOutput(data){
+                avatrImg = `
+                    <img src="${rootPath}/controller/uploads/${data[0].avatr}" width="200" />
+                `
+                document.getElementById("avatarImage").innerHTML = avatarImg;
+                document.getElementById("firstname").value = data[0].firstname;
+                document.getElementById("lastname").value = data[0].lastname;
+                document.getElementById("mobile").value = data[0].mobile;
+                document.getElementById("email").value = data[0].email;
+            }
+  //STOPPED ON LESSON 19 - GOING TO LESSON 20      
         </script>
     </body>
 </html>
