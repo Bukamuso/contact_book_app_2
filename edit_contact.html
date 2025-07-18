@@ -29,6 +29,7 @@
             var id = getId();
             document.getElementById("homeLink").addEventListener('click', homeLink);
             document.getElementById("editContact").addEventListener('click', editContact);
+            document.getElementById("deleteContact").addEventListener('click', deleteContact);
             console.log("The id is :" + id);
 
             function getId(){
@@ -45,7 +46,7 @@
                 })
                 .then(function(data){
                     displayOutput(data);
-                    console.log(data);
+                    //console.log(data); this is deleted in the lesson code
                 })
             }
 
@@ -79,6 +80,42 @@
                 const form = new FormData(document.querySelector("#editForm"));
                 form.append('apiKey', apiKey);
                 form.append('id', id);
+
+                fetch(rootPath + 'controller/edit-contact/', {
+                    method: 'POST',
+                    headers: {'Accept': 'application/json, *.*'},
+                    body: form
+                })
+                .then(function(response){
+                    return response.text();
+                })
+                .then(function(data){
+                    if(data == "1"){
+                        alert("Contact edited.");
+                        homeLink();
+                    }else{
+                        alert(data);
+                        homeLink();
+                    }
+                })
+            }
+
+            function deleteContact(){
+                var confirmDelete = confirm("Delete contact. Are you sure?");
+
+                if(confirmDelete == true){
+                    fetch(rootPath + 'controller/delete-contact/?id=' + id)
+                    .then(function(response){
+                        return response.text();
+                    })
+                    .then(function(data){
+                        if(data == "1"){
+                            homeLink();
+                        }else{
+                            alert(data);
+                        }
+                    })
+                }
             }
 
         </script>
