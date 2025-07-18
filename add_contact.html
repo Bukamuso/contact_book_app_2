@@ -1,70 +1,46 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <br/>
-        <form id="editForm">
-            <label for="firstname">First name</label>
-            <input type="text" name="firstname" id="firstname"><br/>
-            <label for="lastname">Last name</label>
-            <input type="text" name="lastname" id="lastname"><br/>
-            <label for="mobile">Mobile</label>
-            <input type="text" name="mobile" id="mobile"><br/>
-            <label for="email">Email</label>
-            <input type="text" name="email" id="email"><br/>
-            <label for="avatar">Select a file</label><br/>
-            <input type="file" name="avatar" id="avatar"><br/>
-            <button type="submit" id="submitForm">Submit</button>
-        </form>
-        <br/>
-        <button id="homeLink" type="button">Home</button>
+<head>
+    <meta charset="UTF-8">
+    <title>Add Contact</title>
+    <link rel="stylesheet" href="hulk.css">
+</head>
+<body>
+    <h2>Add a New Contact</h2>
+    <form id="editForm">
+        <input type="text" name="firstname" id="firstname" placeholder="First name" required><br/>
+        <input type="text" name="lastname" id="lastname" placeholder="Last name" required><br/>
+        <input type="text" name="mobile" id="mobile" placeholder="Mobile number" required><br/>
+        <input type="email" name="email" id="email" placeholder="Email address" required><br/>
+        <label for="avatar">Upload Avatar</label>
+        <input type="file" name="avatar" id="avatar"><br/>
+        <button type="submit">Submit</button>
+    </form>
+    <button onclick="window.open('index.html', '_self')">Home</button>
 
-        <script src="config.js"></script>
-        <script>
-            document.getElementById("submitForm").addEventListener('click', submitForm);
-            document.getElementById("homeLink").addEventListener('click', homeLink);
+    <script src="config.js"></script>
+    <script>
+        document.getElementById("editForm").addEventListener('submit', function (e) {
+            e.preventDefault();
 
-            function submitForm(e){
-                e.preventDefault();
+            const form = new FormData(document.getElementById('editForm'));
+            form.append('apiKey', apiKey);
 
-                const form = new FormData(document.querySelector('#editForm'));
-                form.append('apiKey', apiKey);
-
-                fetch(rootPath + 'controller/insert-contact/', {
-                    method: 'POST',
-                    headers: {'Accept': 'application/json, *.*'},
-                    body: form
-                })
-                .then(function(response){
-                    return response.text
-                })
-                .then(function(data){
-                    if(datat == "1"){
-                        alert("Contact added.");
-                        homeLink();
-                    }else{
-                        alert(data);
-                        homeLink();
+            fetch(rootPath + 'controller/insert-contact/', {
+                method: 'POST',
+                headers: { 'Accept': 'application/json, *.*' },
+                body: form
+            })
+                .then(res => res.text())
+                .then(data => {
+                    if (data == "1") {
+                        alert("Contact added successfully!");
+                        window.open("index.html", "_self");
+                    } else {
+                        alert("Failed to add contact: " + data);
                     }
-                })
-            }
-
-            function homeLink(){
-                window.open("index.html", "_self");
-            }
-
-        </script>
-    </body>
+                });
+        });
+    </script>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-

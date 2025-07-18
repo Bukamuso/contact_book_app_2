@@ -1,0 +1,17 @@
+body {
+    background-color: #7f0000;
+    color: gold;
+    font-family: Arial, sans-serif;
+}
+button {
+    background-color: gold;
+    color: red;
+    padding: 10px;
+    border: none;
+    margin: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+input, table {
+    margin: 10px;
+}
