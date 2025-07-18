@@ -29,8 +29,8 @@
             var id = getId();
             document.getElementById("homeLink").addEventListener('click', homeLink);
             document.getElementById("editContact").addEventListener('click', editContact);
+            document.getElementById("submitForm").addEventListener('click', submitForm);
             document.getElementById("deleteContact").addEventListener('click', deleteContact);
-            console.log("The id is :" + id);
 
             function getId(){
                 var url = window.location.href;
@@ -45,8 +45,7 @@
                     return response.json();
                 })
                 .then(function(data){
-                    displayOutput(data);
-                    //console.log(data); this is deleted in the lesson code
+                    displayOutput(data); 
                 })
             }
 
